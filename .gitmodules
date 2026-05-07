@@ -1,3 +1,7 @@
 [submodule "unitree_lerobot/lerobot"]
     path = unitree_lerobot/lerobot
     url = https://github.com/huggingface/lerobot
+[submodule "unitree_lerobot/eval_robot/teleimager"]
+	path = unitree_lerobot/eval_robot/teleimager
+	url = https://github.com/unitreerobotics/teleimager
+	branch = sim
