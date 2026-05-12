@@ -25,6 +25,8 @@ kTopicDex3LeftCommand = "rt/dex3/left/cmd"
 kTopicDex3RightCommand = "rt/dex3/right/cmd"
 kTopicDex3LeftState = "rt/dex3/left/state"
 kTopicDex3RightState = "rt/dex3/right/state"
+SIM_DDS_DOMAIN_ID = 1
+SIM_DDS_INTERFACE = "lo"
 
 
 class Dex3_1_Controller:
@@ -57,7 +59,7 @@ class Dex3_1_Controller:
         self.simulation_mode = simulation_mode
 
         if self.simulation_mode:
-            ChannelFactoryInitialize(1)
+            ChannelFactoryInitialize(SIM_DDS_DOMAIN_ID, SIM_DDS_INTERFACE)
         else:
             ChannelFactoryInitialize(0)
 
@@ -275,7 +277,7 @@ class Dex1_1_Gripper_Controller:
         self.simulation_mode = simulation_mode
 
         if self.simulation_mode:
-            ChannelFactoryInitialize(1)
+            ChannelFactoryInitialize(SIM_DDS_DOMAIN_ID, SIM_DDS_INTERFACE)
         else:
             ChannelFactoryInitialize(0)
 

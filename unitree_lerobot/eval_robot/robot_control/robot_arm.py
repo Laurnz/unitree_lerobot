@@ -18,6 +18,8 @@ logger_mp = logging_mp.get_logger(__name__)
 kTopicLowCommand_Debug = "rt/lowcmd"
 kTopicLowCommand_Motion = "rt/arm_sdk"
 kTopicLowState = "rt/lowstate"
+SIM_DDS_DOMAIN_ID = 1
+SIM_DDS_INTERFACE = "lo"
 
 G1_29_Num_Motors = 35
 G1_23_Num_Motors = 35
@@ -89,7 +91,7 @@ class G1_29_ArmController:
 
         # initialize lowcmd publisher and lowstate subscriber
         if self.simulation_mode:
-            ChannelFactoryInitialize(1)
+            ChannelFactoryInitialize(SIM_DDS_DOMAIN_ID, SIM_DDS_INTERFACE)
         else:
             ChannelFactoryInitialize(0)
 
@@ -380,7 +382,7 @@ class G1_23_ArmController:
 
         # initialize lowcmd publisher and lowstate subscriber
         if self.simulation_mode:
-            ChannelFactoryInitialize(1)
+            ChannelFactoryInitialize(SIM_DDS_DOMAIN_ID, SIM_DDS_INTERFACE)
         else:
             ChannelFactoryInitialize(0)
 
@@ -662,7 +664,7 @@ class H1_2_ArmController:
 
         # initialize lowcmd publisher and lowstate subscriber
         if self.simulation_mode:
-            ChannelFactoryInitialize(1)
+            ChannelFactoryInitialize(SIM_DDS_DOMAIN_ID, SIM_DDS_INTERFACE)
         else:
             ChannelFactoryInitialize(0)
         self.lowcmd_publisher = ChannelPublisher(kTopicLowCommand_Debug, hg_LowCmd)
@@ -938,7 +940,7 @@ class H1_ArmController:
 
         # initialize lowcmd publisher and lowstate subscriber
         if self.simulation_mode:
-            ChannelFactoryInitialize(1)
+            ChannelFactoryInitialize(SIM_DDS_DOMAIN_ID, SIM_DDS_INTERFACE)
         else:
             ChannelFactoryInitialize(0)
         self.lowcmd_publisher = ChannelPublisher(kTopicLowCommand_Debug, go_LowCmd)

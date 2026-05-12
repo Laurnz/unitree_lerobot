@@ -75,7 +75,8 @@ def setup_image_client(args: argparse.Namespace) -> dict[str, Any]:
         img_config = {
             "fps": 30,
             "head_camera_type": "opencv",
-            "head_camera_image_shape": [480, 640],  # Head camera resolution
+            # unitree_mujoco_with_cameras publishes [left_high | right_high].
+            "head_camera_image_shape": [480, 1280],
             "head_camera_id_numbers": [0],
             "wrist_camera_type": "opencv",
             "wrist_camera_image_shape": [480, 640],  # Wrist camera resolution
@@ -254,6 +255,12 @@ def process_images_and_observations(
         "observation.images.cam_left_wrist": torch.from_numpy(left_wrist_cam) if has_wrist_cam else None,
         "observation.images.cam_right_wrist": torch.from_numpy(right_wrist_cam) if has_wrist_cam else None,
     }
+    missing_images = [key for key, value in observation.items() if value is None]
+    if missing_images:
+        raise RuntimeError(
+            "Missing image observations: "
+            f"{missing_images}. Check sim image client/server camera shapes."
+        )
     current_arm_q = arm_ctrl.get_current_dual_arm_q()
 
     return observation, current_arm_q
